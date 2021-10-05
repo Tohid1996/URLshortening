@@ -1,0 +1,15 @@
+version: "3.9"
+
+
+services:
+  app:
+    build: .
+    command: sh -c "python manage.py migrate && gunicorn url_shortener.wsgi -b 0.0.0.0:8000"
+    container_name: app
+    volumes:
+      - .:/code/
+    ports:
+      - "8000:8000"
+    networks:
+      - main
+    restart: always
